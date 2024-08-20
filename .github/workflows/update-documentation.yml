@@ -18,6 +18,10 @@ jobs:
         mkdir -p "docs/${repo_name}"
         echo "This documentation was triggered by ${repo_name}" > "docs/${repo_name}/README.md"
 
+    - name: Log the Branch Name
+      run: |
+        echo "Branch name: ${{ github.event.client_payload.branch_name }}"
+
     - name: Commit and Push Changes
       run: |
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
