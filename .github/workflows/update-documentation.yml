@@ -25,13 +25,27 @@ jobs:
 
     - name: Log the repo name
       run: |
-        echo "Branch name: ${{ github.event.client_payload.repo_name }}"
+        echo "Repo name: ${{ github.event.client_payload.repo_name }}"
 
-    - name: Create Documentation Folder
+    - name: Clone Source Repository
       run: |
         repo_name="${{ github.event.client_payload.repo_name }}"
-        mkdir -p "docs/${repo_name}"
-        echo "This documentation was triggered by ${repo_name}" > "docs/${repo_name}/README.md"
+        git clone https://x-access-token:${{ secrets.SOURCE_REPO_PAT }}@github.com/${repo_name}.git source-repo
+      
+    - name: Copy Docs Folder from Source Repository
+      run: |
+        repo_name="${{ github.event.client_payload.repo_name }}"
+        repo_name_only="${repo_name##*/}"
+
+        echo "Copying documentation from ${repo_name_only}..."
+
+        if [ -d "source-repo/docs" ] && [ "$(ls -A source-repo/docs)" ]; then
+          mkdir -p "docs/${repo_name_only}"
+          cp -R source-repo/docs/* "docs/${repo_name_only}/"
+          echo "Documentation from ${repo_name_only} has been copied."
+        else
+          echo "No documentation to copy. The docs folder is either missing or empty."
+        fi
 
     - name: Commit and Push Changes
       run: |
