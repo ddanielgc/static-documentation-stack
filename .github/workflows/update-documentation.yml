@@ -69,8 +69,16 @@ jobs:
       run: |
         rm -rf /tmp/source-repo
 
+    - name: Trigger Deploy Workflow
+      uses: benc-uk/workflow-dispatch@v1
+      if: success()  # This ensures the deployment step only runs if the previous steps succeeded
+      with:
+        workflow: deploy.yml  # The name of the workflow file to trigger
+        token: ${{ secrets.GITHUB_TOKEN }}
+        ref: ${{ github.event.client_payload.branch_name }}
+        
     - name: Debug Push
       run: |
         git log -1
-        echo "Pushed to branch: ${{ github.ref }}"
+        echo "Pushed to branch:" ${{ github.event.client_payload.branch_name }}
         echo "Current branch after push: $(git branch --show-current)"
