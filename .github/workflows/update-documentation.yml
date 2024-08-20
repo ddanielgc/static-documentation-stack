@@ -17,7 +17,11 @@ jobs:
 
     - name: Ensure the correct branch is checked out
       run: |
-        git checkout ${{ github.event.client_payload.branch_name }}  # Ensure the correct branch is active
+        git checkout ${{ github.event.client_payload.branch_name }}
+    
+    - name: Log the Active Branch (Pre-Commit)
+      run: |
+        echo "Active branch before commit: $(git branch --show-current)"
 
     - name: Log the Branch Name
       run: |
@@ -69,3 +73,4 @@ jobs:
       run: |
         git log -1
         echo "Pushed to branch: ${{ github.ref }}"
+        echo "Current branch after push: $(git branch --show-current)"
