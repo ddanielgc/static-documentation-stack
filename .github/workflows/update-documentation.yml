@@ -24,6 +24,7 @@ jobs:
         git config --global user.name "GitHub Actions"
         git add .
         git commit -m "Added documentation for ${{ github.event.client_payload.repo_name }}"
-        git push
+        
+        git push origin HEAD:${{ github.event.client_payload.branch_name }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
