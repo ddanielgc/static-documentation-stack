@@ -82,4 +82,3 @@ jobs:
         git log -1
         echo "Pushed to branch:" ${{ github.event.client_payload.branch_name }}
         echo "Current branch after push: $(git branch --show-current)"
-
