@@ -54,7 +54,7 @@ jobs:
         repo_name="${{ github.event.client_payload.repo_name }}"
         repo_name_only="${repo_name##*/}"
 
-        git add docs/${repo_name_only}
+        git add docusaurus-site/docs/${repo_name_only}
         git commit -m "Added documentation for ${{ github.event.client_payload.repo_name }}"
         
         git push origin ${{ github.event.client_payload.branch_name }}
