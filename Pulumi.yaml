@@ -1,0 +1,10 @@
+name: pulumi-docusaurus
+runtime:
+  name: nodejs
+  options:
+    packagemanager: npm
+description: Pulumi Docusaurus
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: static-website-aws-typescript

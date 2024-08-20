@@ -1,0 +1,5 @@
+config:
+  aws:region: us-east-1
+  pulumi-docusaurus:errorDocument: 404.html
+  pulumi-docusaurus:indexDocument: index.html
+  pulumi-docusaurus:path: ./docusaurus-site/build

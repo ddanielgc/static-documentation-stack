@@ -1,0 +1,51 @@
+{
+    "name": "pulumi-docusaurus",
+    "private": true,
+    "scripts": {
+        "docusaurus": "cd docusaurus-site && docusaurus",
+        "start": "docusaurus start docusaurus-site",
+        "build": "docusaurus build docusaurus-site",
+        "serve": "docusaurus serve docusaurus-site",
+        "swizzle": "cd docusaurus-site && docusaurus swizzle",
+        "deploy": "cd docusaurus-site && docusaurus deploy",
+        "clear": "cd docusaurus-site && docusaurus clear",
+        "write-translations": "cd docusaurus-site && docusaurus write-translations",
+        "write-heading-ids": "cd docusaurus-site && docusaurus write-heading-ids",
+        "typecheck": "tsc"
+    },
+    "devDependencies": {
+        "@docusaurus/module-type-aliases": "3.5.2",
+        "@docusaurus/tsconfig": "3.5.2",
+        "@docusaurus/types": "3.5.2",
+        "@types/node": "^18",
+        "aws-sdk": "^2.1678.0",
+        "typescript": "~5.5.2"
+    },
+    "dependencies": {
+        "@docusaurus/core": "^3.5.2",
+        "@docusaurus/preset-classic": "^3.5.2",
+        "@mdx-js/react": "^3.0.0",
+        "@pulumi/aws": "^6.0.2",
+        "@pulumi/pulumi": "^3.113.0",
+        "@pulumi/synced-folder": "^0.0.9",
+        "clsx": "^2.0.0",
+        "prism-react-renderer": "^2.3.0",
+        "react": "^18.0.0",
+        "react-dom": "^18.0.0"
+    },
+    "browserslist": {
+        "production": [
+            ">0.5%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 3 chrome version",
+            "last 3 firefox version",
+            "last 5 safari version"
+        ]
+    },
+    "engines": {
+        "node": ">=18.0"
+    }
+}
