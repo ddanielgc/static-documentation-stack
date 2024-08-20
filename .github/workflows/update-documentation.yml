@@ -12,17 +12,22 @@ jobs:
     - name: Checkout Documentation Repository
       uses: actions/checkout@v4
       with:
-        ref: ${{ github.event.client_payload.branch_name }}
+        ref: ${{ github.event.client_payload.branch_name }}  # Checkout the specific branch
+        fetch-depth: 0  # Fetch all history for all branches
+
+    - name: Ensure the correct branch is checked out
+      run: |
+        git checkout ${{ github.event.client_payload.branch_name }}  # Ensure the correct branch is active
+
+    - name: Log the Branch Name
+      run: |
+        echo "Branch name: ${{ github.event.client_payload.branch_name }}"
 
     - name: Create Documentation Folder
       run: |
         repo_name="${{ github.event.client_payload.repo_name }}"
         mkdir -p "docs/${repo_name}"
         echo "This documentation was triggered by ${repo_name}" > "docs/${repo_name}/README.md"
-
-    - name: Log the Branch Name
-      run: |
-        echo "Branch name: ${{ github.event.client_payload.branch_name }}"
 
     - name: Commit and Push Changes
       run: |
@@ -31,6 +36,6 @@ jobs:
         git add .
         git commit -m "Added documentation for ${{ github.event.client_payload.repo_name }}"
         
-        git push origin HEAD:${{ github.event.client_payload.branch_name }}
+        git push origin ${{ github.event.client_payload.branch_name }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
