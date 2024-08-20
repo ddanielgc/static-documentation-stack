@@ -40,12 +40,16 @@ jobs:
         echo "Copying documentation from ${repo_name_only}..."
 
         if [ -d "source-repo/docs" ] && [ "$(ls -A source-repo/docs)" ]; then
-          mkdir -p "docs/${repo_name_only}"
-          cp -R source-repo/docs/* "docs/${repo_name_only}/"
+          mkdir -p "docusaurus-site/docs/${repo_name_only}"
+          cp -R source-repo/docs/* "docusaurus-site/docs/${repo_name_only}/"
           echo "Documentation from ${repo_name_only} has been copied."
         else
           echo "No documentation to copy. The docs folder is either missing or empty."
         fi
+
+    - name: Remove source-repo from Git Index
+      run: |
+        git rm -rf --cached source-repo
 
     - name: Commit and Push Changes
       run: |
@@ -57,3 +61,8 @@ jobs:
         git push origin ${{ github.event.client_payload.branch_name }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Debug Push
+      run: |
+        git log -1
+        echo "Pushed to branch: ${{ github.ref }}"
