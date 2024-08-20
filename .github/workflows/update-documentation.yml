@@ -47,10 +47,6 @@ jobs:
           echo "No documentation to copy. The docs folder is either missing or empty."
         fi
 
-    - name: Clean Up Temporary Directory
-      run: |
-        rm -rf /tmp/source-repo
-
     - name: Commit and Push Changes
       run: |
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -64,6 +60,10 @@ jobs:
         git push origin ${{ github.event.client_payload.branch_name }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Clean Up Temporary Directory
+      run: |
+        rm -rf /tmp/source-repo
 
     - name: Debug Push
       run: |
