@@ -24,6 +24,8 @@ jobs:
     - name: Select or Create Pulumi Stack
       run: |
         pulumi stack select dev || pulumi stack init dev
+      env:
+        PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
 
     - name: Build the Docusaurus site
       run: npm run build
