@@ -63,8 +63,8 @@ jobs:
       run: |
         repo_name="${{ github.event.client_payload.repo_name }}"
         repo_name_only="${repo_name##*/}"
-        
-        node .github/scripts/updateSidebars.js $repo_name_only
+
+        node .github/scripts/updateSideBar.js $repo_name_only
 
 
     - name: Commit and Push Changes
