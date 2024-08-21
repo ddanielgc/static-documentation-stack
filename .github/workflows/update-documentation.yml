@@ -58,13 +58,18 @@ jobs:
 
     # - name: Update Docusaurus Config and Sidebar
     #   run: node .github/scripts/updateDocConfig.js
-
+    - name: List Files in Docusaurus Site
+      run: ls -al docusaurus-site/docs
+      
     - name: Update Sidebars for OpenAPI
       run: |
         repo_name="${{ github.event.client_payload.repo_name }}"
         repo_name_only="${repo_name##*/}"
 
         node .github/scripts/updateSideBar.js $repo_name_only
+        working-directory: ${{ github.workspace }}
+    
+    
 
     - name: Commit and Push Changes
       run: |
