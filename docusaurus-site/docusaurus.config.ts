@@ -1,6 +1,7 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import type * as Redocusaurus from 'redocusaurus';
 
 const config: Config = {
   title: 'My Site',
@@ -45,6 +46,24 @@ const config: Config = {
         },
       } satisfies Preset.Options,
     ],
+    // Redocusaurus config
+    [
+      'redocusaurus',
+      {
+        // Plugin Options for loading OpenAPI files
+        specs: [
+          {
+            // Path to your local OpenAPI YAML file
+            spec: 'docs/g-taxonomy-products-categorizer/openapi.yaml',
+            route: '/g-taxonomy-products-categorizer-api/',
+          },
+        ],
+        // Theme Options for modifying how Redoc renders them
+        theme: {
+          primaryColor: '#1890ff',
+        },
+      },
+    ] satisfies Redocusaurus.PresetEntry,
   ],
 
   themeConfig: {

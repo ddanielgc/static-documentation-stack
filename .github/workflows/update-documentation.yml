@@ -13,7 +13,12 @@ jobs:
       uses: actions/checkout@v4
       with:
         ref: ${{ github.event.client_payload.branch_name }}  # Checkout the specific branch
-        fetch-depth: 0  # Fetch all history for all branches
+        fetch-depth: 0
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
 
     - name: Ensure the correct branch is checked out
       run: |
@@ -51,6 +56,9 @@ jobs:
           echo "No documentation to copy. The docs folder is either missing or empty."
         fi
 
+    - name: Update Docusaurus Config and Sidebar
+      run: node .github/scripts/updateDocConfig.js
+
     - name: Commit and Push Changes
       run: |
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -71,7 +79,7 @@ jobs:
 
     - name: Trigger Deploy Workflow
       uses: benc-uk/workflow-dispatch@v1
-      if: success()  # This ensures the deployment step only runs if the previous steps succeeded
+      if: success()
       with:
         workflow: deploy.yml  # The name of the workflow file to trigger
         token: ${{ secrets.GITHUB_TOKEN }}
