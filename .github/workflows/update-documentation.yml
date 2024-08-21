@@ -56,8 +56,16 @@ jobs:
           echo "No documentation to copy. The docs folder is either missing or empty."
         fi
 
-    - name: Update Docusaurus Config and Sidebar
-      run: node .github/scripts/updateDocConfig.js
+    # - name: Update Docusaurus Config and Sidebar
+    #   run: node .github/scripts/updateDocConfig.js
+
+    - name: Update Sidebars for OpenAPI
+      run: |
+        repo_name="${{ github.event.client_payload.repo_name }}"
+        repo_name_only="${repo_name##*/}"
+        
+        node .github/scripts/updateSidebars.js $repo_name_only
+
 
     - name: Commit and Push Changes
       run: |
