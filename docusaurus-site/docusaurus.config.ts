@@ -54,7 +54,7 @@ const config: Config = {
         specs: [
           {
             // Path to your local OpenAPI YAML file
-            spec: 'docs/g-taxonomy-products-categorizer/openapi.yaml',
+            spec: 'docusaurus-site/docs/g-taxonomy-products-categorizer/openapi.yaml',
             route: '/g-taxonomy-products-categorizer-api/',
           },
         ],
