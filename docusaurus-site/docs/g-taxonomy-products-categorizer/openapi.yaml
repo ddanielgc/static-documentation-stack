@@ -1,0 +1,27 @@
+openapi: 3.0.1
+info:
+  title: Example API
+  description: This is an example API documentation.
+  version: 1.0.0
+servers:
+  - url: https://{your-api-id}.execute-api.{your-region}.amazonaws.com/{stage}
+    variables:
+      your-api-id:
+        default: api-id-placeholder
+      your-region:
+        default: region-placeholder
+      stage:
+        default: dev
+paths:
+  /:
+    get:
+      summary: Root path
+      responses:
+        '200':
+          description: A simple static website
+  /date:
+    get:
+      summary: Get the current date
+      responses:
+        '200':
+          description: Returns the current date
