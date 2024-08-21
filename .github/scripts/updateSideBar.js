@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Path to the sidebars.js file
-const sidebarsPath = path.resolve(__dirname, '../docusaurus-site/sidebars.js');
+const sidebarsPath = path.resolve(__dirname, '../../docusaurus-site/sidebars.js');
 
 // Read the sidebars.js file
 let sidebarsContent = fs.readFileSync(sidebarsPath, 'utf-8');
