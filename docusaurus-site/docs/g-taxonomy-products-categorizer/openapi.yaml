@@ -2,9 +2,9 @@ openapi: 3.0.1
 info:
   title: Example API
   description: This is an example API documentation.
-  version: 1.0.0
+  version: 1.0.3
 servers:
-  - url: https://{your-api-id}.execute-api.{your-region}.amazonaws.com/{stage}
+  - url: https://test.execute-api.us-east-1.amazonaws.com/dev
     variables:
       your-api-id:
         default: api-id-placeholder
