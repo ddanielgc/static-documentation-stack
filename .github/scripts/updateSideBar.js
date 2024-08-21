@@ -3,7 +3,7 @@ const path = require('path');
 
 // Path to the sidebars.js file
 console.log('dir', __dirname)
-const sidebarsPath = path.resolve(__dirname, '../../../docusaurus-site/sidebars.js');
+const sidebarsPath = path.resolve(__dirname, '../../../docusaurus-site/sidebars.ts');
 
 console.log('sidebarsPath', sidebarsPath)
 
