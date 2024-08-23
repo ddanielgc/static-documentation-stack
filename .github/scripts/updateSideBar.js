@@ -12,6 +12,7 @@ let sidebarsContent = fs.readFileSync(sidebarsPath, 'utf-8');
 
 // Function to add the OpenAPI link for the specific project
 function addOpenApiLink(projectName) {
+  console.log('projectName', projectName)
   const openApiLink = `
         {
           type: 'link',
