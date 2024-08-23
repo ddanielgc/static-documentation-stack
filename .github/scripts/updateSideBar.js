@@ -55,7 +55,7 @@ function addOpenApiLink(projectName) {
 
     // Ensure there's a comma before adding a new category
     sidebarsContent = sidebarsContent.replace(
-      /(tutorialSidebar: \[)([^]*?)(\],)/,
+      /(documentationSidebar: \[)([^]*?)(\],)/,
       (match, p1, p2, p3) => {
         return `${p1}${p2.trim().endsWith(',') ? p2 : `${p2},`}${newCategory}${p3}`;
       }
