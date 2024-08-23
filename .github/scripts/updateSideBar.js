@@ -30,12 +30,14 @@ function addOpenApiLink(projectName) {
   );
 
   if (sidebarsContent.match(projectCategoryRegex)) {
+    console.log('if')
     // If the project category already exists, update it
     sidebarsContent = sidebarsContent.replace(
       projectCategoryRegex,
       `$1$2${openApiLink}$3`
     );
   } else {
+    console.log('else')
     // If the project category does not exist, create it
     const newCategory = `
     {
@@ -55,6 +57,8 @@ function addOpenApiLink(projectName) {
       `$1$2${newCategory}$3`
     );
   }
+
+  console.log(`Content is:  ${sidebarsContent}`);
 
   // Write the updated content back to sidebars.js
   fs.writeFileSync(sidebarsPath, sidebarsContent);
