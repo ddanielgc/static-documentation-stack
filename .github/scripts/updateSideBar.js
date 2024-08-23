@@ -2,13 +2,17 @@ const fs = require('fs');
 const path = require('path');
 
 // Path to the sidebars.js file
-const sidebarsPath = path.resolve(__dirname, '../../docusaurus-site/sidebars.js');
+console.log('dir', __dirname)
+const sidebarsPath = path.resolve(__dirname, '../../docusaurus-site/sidebars.ts');
+
+console.log('sidebarsPath', sidebarsPath)
 
 // Read the sidebars.js file
 let sidebarsContent = fs.readFileSync(sidebarsPath, 'utf-8');
 
 // Function to add the OpenAPI link for the specific project
 function addOpenApiLink(projectName) {
+  console.log('projectName', projectName)
   const openApiLink = `
         {
           type: 'link',
@@ -27,12 +31,14 @@ function addOpenApiLink(projectName) {
   );
 
   if (sidebarsContent.match(projectCategoryRegex)) {
+    console.log('if')
     // If the project category already exists, update it
     sidebarsContent = sidebarsContent.replace(
       projectCategoryRegex,
       `$1$2${openApiLink}$3`
     );
   } else {
+    console.log('else')
     // If the project category does not exist, create it
     const newCategory = `
     {
@@ -52,6 +58,8 @@ function addOpenApiLink(projectName) {
       `$1$2${newCategory}$3`
     );
   }
+
+  console.log(`Content is:  ${sidebarsContent}`);
 
   // Write the updated content back to sidebars.js
   fs.writeFileSync(sidebarsPath, sidebarsContent);
