@@ -18,10 +18,10 @@ paths:
       summary: Root path
       responses:
         '200':
-          description: A simple static website
+          description: A simple static website - test
   /date:
     get:
-      summary: Get the current date
+      summary: Get the current date - test
       responses:
         '200':
           description: Returns the current date
