@@ -15,10 +15,14 @@ function addOpenApiLink(projectName) {
     href: `/${projectName}-api/`,
   };
 
-  // Extract the existing sidebars object
+  // Remove the export default statement for safe execution
+  const sidebarsCode = sidebarsContent.replace('export default', '');
+
+  // Safely execute the code using Function constructor
   let sidebars;
   try {
-    sidebars = eval(sidebarsContent.replace('export default', ''));
+    const executeSidebars = new Function('SidebarsConfig', sidebarsCode + '; return sidebars;');
+    sidebars = executeSidebars({});
   } catch (e) {
     console.error('Error parsing sidebars.ts:', e);
     return;
