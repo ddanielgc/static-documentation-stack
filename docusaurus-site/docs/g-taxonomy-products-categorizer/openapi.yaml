@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: Example API
   description: This is an example API documentation.
-  version: 1.0.3
+  version: 1.0.4
 servers:
   - url: https://test.execute-api.us-east-1.amazonaws.com/dev
     variables:
