@@ -60,14 +60,20 @@ jobs:
     #   run: node .github/scripts/updateDocConfig.js
     - name: List Files in Docusaurus Site
       run: ls -al docusaurus-site/docs
-      
+
+    - name: Log Current Directory
+      run: pwd
+
+    - name: Install Dependencies
+      run: npm install
+
     - name: Update Sidebars for OpenAPI
       working-directory: ${{ github.workspace }}
       run: |
         repo_name="${{ github.event.client_payload.repo_name }}"
         repo_name_only="${repo_name##*/}"
 
-        node .github/scripts/updateSideBar.js $repo_name_only
+        npx ts-node -P ./tsconfig.json .github/scripts/updateSideBar.ts $repo_name_only
     
     - name: Commit and Push Changes
       run: |
