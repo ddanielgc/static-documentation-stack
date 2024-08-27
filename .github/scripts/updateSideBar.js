@@ -18,11 +18,14 @@ function addOpenApiLink(projectName) {
   // Remove the export default statement for safe execution
   const sidebarsCode = sidebarsContent.replace('export default', '');
 
-  // Safely execute the code using Function constructor
+
+  // Dynamically import the sidebars.ts file
   let sidebars;
   try {
-    const executeSidebars = new Function('SidebarsConfig', sidebarsCode + '; return sidebars;');
-    sidebars = executeSidebars({});
+    const sidebarsModule = eval(
+      sidebarsContent.replace('export default', 'module.exports =')
+    );
+    sidebars = sidebarsModule;
   } catch (e) {
     console.error('Error parsing sidebars.ts:', e);
     return;
