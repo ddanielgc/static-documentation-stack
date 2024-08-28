@@ -1,5 +1,6 @@
-import fs from 'fs';
-import path from 'path';
+import * as fs from 'fs';
+import * as path from 'path';
+
 // Define the interfaces to represent the structure of your sidebar configuration
 interface OpenApiLink {
   type: 'link';
