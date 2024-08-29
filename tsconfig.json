@@ -1,5 +1,5 @@
 {
-    "compilerOptions": {
+  "compilerOptions": {
       "strict": true,
       "outDir": "bin",
       "target": "es2020",
@@ -10,13 +10,9 @@
       "pretty": true,
       "noFallthroughCasesInSwitch": true,
       "noImplicitReturns": true,
-      "forceConsistentCasingInFileNames": true,
-      "esModuleInterop": true, // Enables compatibility for module imports
-      "skipLibCheck": true      // Optional: Skips type checking of all declaration files (*.d.ts)
-    },
-    "include": [
-      "index.ts",
-      ".github/scripts/*.ts"    // Includes your GitHub Action scripts in the compilation
-, ".github/scripts/updateSideBar.js"    ]
-  }
-  
+      "forceConsistentCasingInFileNames": true
+  },
+  "files": [
+      "index.ts"
+  ]
+}
