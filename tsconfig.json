@@ -17,6 +17,6 @@
     "include": [
       "index.ts",
       ".github/scripts/*.ts"    // Includes your GitHub Action scripts in the compilation
-    ]
+, ".github/scripts/updateSideBar.js"    ]
   }
   
