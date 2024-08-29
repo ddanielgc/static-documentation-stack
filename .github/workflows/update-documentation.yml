@@ -21,8 +21,10 @@ jobs:
         node-version: '18'
 
     - name: Set Environment Variables
-      id: set-env
-      run: echo "REPO_NAME_ONLY=${GITHUB_REPOSITORY##*/}" >> $GITHUB_ENV
+      run: |
+        # Extract the repository name without the organization
+        REPO_NAME_ONLY=$(basename "${{ github.event.client_payload.repo_name }}")
+        echo "REPO_NAME_ONLY=$REPO_NAME_ONLY" >> $GITHUB_ENV
 
     - name: Ensure the correct branch is checked out
       run: |
