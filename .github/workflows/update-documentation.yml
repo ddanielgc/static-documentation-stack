@@ -20,6 +20,10 @@ jobs:
       with:
         node-version: '18'
 
+    - name: Set Environment Variables
+      id: set-env
+      run: echo "REPO_NAME_ONLY=${GITHUB_REPOSITORY##*/}" >> $GITHUB_ENV
+
     - name: Ensure the correct branch is checked out
       run: |
         git checkout ${{ github.event.client_payload.branch_name }}
@@ -43,47 +47,34 @@ jobs:
       
     - name: Copy Docs Folder from Source Repository
       run: |
-        repo_name="${{ github.event.client_payload.repo_name }}"
-        repo_name_only="${repo_name##*/}"
-
-        echo "Copying documentation from ${repo_name_only}..."
+        echo "Copying documentation from ${REPO_NAME_ONLY}..."
 
         if [ -d "/tmp/source-repo/docs" ] && [ "$(ls -A /tmp/source-repo/docs)" ]; then
-          mkdir -p "docusaurus-site/docs/${repo_name_only}"
-          cp -R /tmp/source-repo/docs/* "docusaurus-site/docs/${repo_name_only}/"
-          echo "Documentation from ${repo_name_only} has been copied."
+          mkdir -p "docusaurus-site/docs/${REPO_NAME_ONLY}"
+          cp -R /tmp/source-repo/docs/* "docusaurus-site/docs/${REPO_NAME_ONLY}/"
+          echo "Documentation from ${REPO_NAME_ONLY} has been copied."
         else
           echo "No documentation to copy. The docs folder is either missing or empty."
         fi
 
-    # - name: Update Docusaurus Config and Sidebar
-    #   run: node .github/scripts/updateDocConfig.js
-    - name: List Files in Docusaurus Site
-      run: ls -al docusaurus-site/docs
-
-    - name: Log Current Directory
-      run: pwd
-
-    - name: Install Dependencies
-      run: npm install
-
-    - name: Update Sidebars for OpenAPI
+    - name: Check for OpenAPI File and Update Sidebars
       working-directory: ${{ github.workspace }}
       run: |
-        repo_name="${{ github.event.client_payload.repo_name }}"
-        repo_name_only="${repo_name##*/}"
+        # Check if openapi.yaml exists in the project's directory
+        if [ -f "docusaurus-site/docs/${REPO_NAME_ONLY}/openapi.yaml" ]; then
+          echo "openapi.yaml found for ${REPO_NAME_ONLY}. Running updateSideBar script..."
+          node .github/scripts/updateSideBar.js ${REPO_NAME_ONLY}
+        else
+          echo "No openapi.yaml file found for ${REPO_NAME_ONLY}. Skipping OpenAPI link addition."
+        fi
 
-        node .github/scripts/updateSideBar.js $repo_name_only
-    
     - name: Commit and Push Changes
       run: |
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "GitHub Actions"
-        repo_name="${{ github.event.client_payload.repo_name }}"
-        repo_name_only="${repo_name##*/}"
 
         git add docusaurus-site/sidebars.ts
-        git add docusaurus-site/docs/${repo_name_only}
+        git add docusaurus-site/docs/${REPO_NAME_ONLY}
         
         git commit -m "Updated documentation for ${{ github.event.client_payload.repo_name }}"
         
