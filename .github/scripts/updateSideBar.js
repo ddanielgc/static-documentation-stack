@@ -1,22 +1,22 @@
 const fs = require('fs');
 const path = require('path');
 
-// Path to the sidebars.ts file
+// Path to the sidebars.js file
 const sidebarsPath = path.resolve(__dirname, '../../docusaurus-site/sidebars.ts');
 
-// Read the sidebars.ts file
+// Read the sidebars.js file
 let sidebarsContent = fs.readFileSync(sidebarsPath, 'utf-8');
 
 // Function to add the OpenAPI link for the specific project
 function addOpenApiLink(projectName) {
   console.log('projectName', projectName);
-  
+
   const openApiLink = `
-        {
-          type: 'link',
-          label: 'API Documentation',
-          href: '/${projectName}-api/',
-        },
+    {
+      type: 'link',
+      label: 'API Documentation',
+      href: '/${projectName}-api/',
+    }
   `;
 
   // Check if the category already exists
@@ -25,10 +25,11 @@ function addOpenApiLink(projectName) {
   if (categoryExists) {
     console.log(`Category ${projectName} already exists.`);
     // Ensure the OpenAPI link is not already present
+    const categoryRegex = new RegExp(`(label: '${projectName}',\\s*items: \\[)([^]*?)(\\])`);
     if (!sidebarsContent.includes(openApiLink.trim())) {
       sidebarsContent = sidebarsContent.replace(
-        new RegExp(`(label: '${projectName}',\\s*items: \\[)([^]*?)(\\])`, 'g'),
-        `$1$2${openApiLink}$3`
+        categoryRegex,
+        (match, p1, p2, p3) => `${p1}${p2.trim()},${openApiLink}${p3}`
       );
     }
   } else {
@@ -45,18 +46,18 @@ function addOpenApiLink(projectName) {
         },
         ${openApiLink}
       ],
-    },`;
+    }`;
 
-    // Add the new category to the sidebar
+    // Add the new category to the sidebar, ensuring no duplicates
     sidebarsContent = sidebarsContent.replace(
-      /(documentationSidebar: \[)([^]*?)(\],)/,
-      `$1$2${newCategory}$3`
+      /(documentationSidebar: \[)([^]*?)(\])/,
+      (match, p1, p2, p3) => `${p1}${p2.trim()},${newCategory}${p3}`
     );
   }
 
   console.log(`Updated content:\n${sidebarsContent}`);
 
-  // Write the updated content back to sidebars.ts
+  // Write the updated content back to sidebars.js
   fs.writeFileSync(sidebarsPath, sidebarsContent);
 }
 
