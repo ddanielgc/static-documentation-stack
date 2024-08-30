@@ -72,8 +72,8 @@ const config: Config = {
     navbar: {
       title: 'Yampi Documentation',
       logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        alt: 'Yampi Logo',
+        src: 'img/yampi.svg',
       },
       items: [
         {
