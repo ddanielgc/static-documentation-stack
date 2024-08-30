@@ -4,8 +4,8 @@ import type * as Preset from '@docusaurus/preset-classic';
 import type * as Redocusaurus from 'redocusaurus';
 
 const config: Config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+  title: 'Yampi Documentation',
+  tagline: 'Documentation as Code is life.',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -70,7 +70,6 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'Yampi Documentation',
       logo: {
         alt: 'Yampi Logo',
         src: 'img/yampi.svg',
